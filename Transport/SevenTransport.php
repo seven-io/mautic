@@ -32,7 +32,8 @@ class SevenTransport implements TransportInterface {
         private IntegrationsHelper $integrationsHelper,
         private Logger             $logger,
         private DoNotContact       $doNotContactService
-    ) {}
+    ) {
+    }
 
     /**
      * @param Lead $lead
@@ -49,7 +50,7 @@ class SevenTransport implements TransportInterface {
         $number = $lead->getLeadPhoneNumber();
         if (empty($number)) return false;
 
-        if (!$this->client) throw new SevenPluginException('There is no client available');
+        //if (!$this->client) throw new SevenPluginException('There is no client available');
 
         if (!$this->clientConfigured && !$this->configureClient())
             return new PluginNotConfiguredException;
@@ -70,20 +71,15 @@ class SevenTransport implements TransportInterface {
 
             return 'mautic.seven.failed.invalid_phone_number';
         } catch (
-        InvalidOptionalArgumentException|
-        InvalidRequiredArgumentException $e
+        InvalidOptionalArgumentException|InvalidRequiredArgumentException $e
         ) {
-            $this->logError($e, $number);
+            $this->logger->error('seven plugin unhandled exception',
+                ['error' => $e->getMessage(), 'number' => $number]
+            );
             throw $e;
         }
 
         return true;
-    }
-
-    private function logError(Exception $e, string $number): void {
-        $this->logger->error('seven plugin unhandled exception',
-            ['error' => $e->getMessage(), 'number' => $number]
-        );
     }
 
     /**
