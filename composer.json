@@ -10,7 +10,7 @@
     },
     "name": "seven.io/mautic",
     "require": {
-        "php": ">=8.0 <8.1",
+        "php": ">=8.0",
         "mautic/core-lib": "*",
         "mautic/composer-plugin": "*",
         "ext-curl": "*"
