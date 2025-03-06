@@ -11,9 +11,9 @@
     "name": "seven.io/mautic",
     "require": {
         "php": ">=8.0 <8.1",
-        "seven.io/api": "v4.0.0",
         "mautic/core-lib": "*",
-        "mautic/composer-plugin": "*"
+        "mautic/composer-plugin": "*",
+        "ext-curl": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10",
@@ -24,5 +24,5 @@
         "fixcs": "../../bin/php-cs-fixer fix . -v --using-cache=no"
     },
     "type": "mautic-plugin",
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
