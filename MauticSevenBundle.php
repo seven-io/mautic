@@ -2,6 +2,6 @@
 
 namespace MauticPlugin\MauticSevenBundle;
 
-use Mautic\IntegrationsBundle\Bundle\AbstractPluginBundle;
+use Mautic\PluginBundle\Bundle\PluginBundleBase;
 
-class MauticSevenBundle extends AbstractPluginBundle {}
+class MauticSevenBundle extends PluginBundleBase {}
