@@ -21,9 +21,9 @@ class SevenTransport implements TransportInterface {
     private bool $clientConfigured = false;
 
     public function __construct(
-        private IntegrationsHelper $integrationsHelper,
-        private Logger             $logger,
-        private DoNotContact       $doNotContactService
+        private readonly IntegrationsHelper $integrationsHelper,
+        private readonly Logger             $logger,
+        private readonly DoNotContact $doNotContactService
     ) {
     }
 

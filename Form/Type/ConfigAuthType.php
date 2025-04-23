@@ -2,8 +2,7 @@
 
 namespace MauticPlugin\MauticSevenBundle\Form\Type;
 
-use GuzzleHttp\Client;
-use Mautic\IntegrationsBundle\Form\Type\NotBlankIfPublishedConstraintTrait;
+use Mautic\PluginBundle\Entity\Integration;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,8 +12,6 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ConfigAuthType extends AbstractType {
-    use NotBlankIfPublishedConstraintTrait;
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -24,7 +21,15 @@ class ConfigAuthType extends AbstractType {
                 'always_empty' => false,
                 'attr' => ['class' => 'form-control'],
                 'constraints' => [
-                    $this->getNotBlankConstraint(),
+                    new Callback(
+                        function ($validateMe, ExecutionContextInterface $context): void {
+                            /** @var Integration $data */
+                            $data = $context->getRoot()->getData();
+                            if (!empty($data->getIsPublished()) && empty($validateMe)) {
+                                $context->buildViolation('mautic.core.value.required')->addViolation();
+                            }
+                        }
+                    ),
 /*                    new Callback(
                         function ($validateMe, ExecutionContextInterface $context) {
                             $res = (new Client)->post('https://gateway.seven.io/api/balance', [
