@@ -3,7 +3,7 @@
 namespace MauticPlugin\MauticSevenBundle\Form\Type;
 
 use GuzzleHttp\Client;
-use Mautic\IntegrationsBundle\Form\Type\Auth\BasicAuthKeysTrait;
+use Mautic\IntegrationsBundle\Form\Type\NotBlankIfPublishedConstraintTrait;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ConfigAuthType extends AbstractType {
-    use BasicAuthKeysTrait;
+    use NotBlankIfPublishedConstraintTrait;
 
     /**
      * @param FormBuilderInterface $builder
